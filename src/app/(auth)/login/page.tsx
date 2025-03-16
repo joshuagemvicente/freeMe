@@ -1,7 +1,7 @@
-export default function LoginPage() {
+export default function Login() {
   return (
     <main className="w-full">
-      <div></div>
+      <div>Login</div>
     </main>
   );
 }

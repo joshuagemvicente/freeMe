@@ -11,9 +11,29 @@ export const registerSchema = z.object({
   lastName: z.string().min(1, { message: "lastName is required" }),
   username: z.string().min(1, { message: "username is required" }),
   email: z.string().email().min(1, { message: "email is required" }),
-  password: z.string().min(1, { message: "password is required" }),
+  password: z.string().min(1, { message: "password is required" }).trim(),
 });
 // end of auth schema
 
-export type LoginFormType = z.infer<typeof loginSchema>;
-export type RegisterFormType = z.infer<typeof registerSchema>;
+export type LoginFormState =
+  | {
+      errors?: {
+        username?: string[];
+        password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
+
+export type RegisterFormState =
+  | {
+      errors?: {
+        firstName?: string[];
+        lastName?: string[];
+        username?: string[];
+        email?: string[];
+        password?: string[];
+      };
+      message?: string;
+    }
+  | undefined;
