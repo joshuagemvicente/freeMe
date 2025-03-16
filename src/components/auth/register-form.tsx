@@ -3,7 +3,7 @@ import { useActionState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { signup } from "@/lib/actions";
+import { signup } from "@/app/actions/auth";
 
 export function RegisterForm() {
   const [state, action, pending] = useActionState(signup, undefined);
@@ -12,17 +12,23 @@ export function RegisterForm() {
       <form action={action} className="flex flex-col gap-5">
         <div>
           <Label>First Name (Optional)</Label>
-          <Input name="firstName" placeholder="John" type="text" />
+          <Input
+            id="firstName"
+            name="firstName"
+            placeholder="John"
+            type="text"
+          />
         </div>
         {state?.errors?.firstName && <p>{state.errors.firstName}</p>}
         <div>
           <Label>Last Name (Optional)</Label>
-          <Input name="lastName" placeholder="Doe" type="text" />
+          <Input id="lastName" name="lastName" placeholder="Doe" type="text" />
         </div>
         {state?.errors?.lastName && <p>{state.errors.lastName}</p>}
         <div>
           <Label htmlFor="username">Username</Label>
           <Input
+            id="username"
             name="username"
             placeholder="johndoe123"
             type="text"
@@ -33,6 +39,7 @@ export function RegisterForm() {
         <div>
           <Label htmlFor="email">Email </Label>
           <Input
+            id="email"
             name="email"
             placeholder="johndoe@mail.com"
             type="email"
@@ -43,6 +50,7 @@ export function RegisterForm() {
         <div>
           <Label htmlFor="password">Password</Label>
           <Input
+            id="password"
             name="password"
             placeholder="Password"
             type="password"

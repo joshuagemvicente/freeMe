@@ -18,8 +18,9 @@ export async function signup(formData: FormData, state: RegisterFormState) {
   });
 
   if (!validatedFields.success) {
-    state!.errors = validatedFields.error.flatten().fieldErrors;
-    return { errors: state!.errors };
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    };
   }
 
   const { firstName, lastName, username, email, password } =

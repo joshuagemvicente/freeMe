@@ -5,21 +5,28 @@ import { cookies } from "next/headers";
 const sessionSecretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(sessionSecretKey);
 
-export async function encrypt(payload) {
+export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
     .sign(encodedKey);
 }
+
 export async function decrypt(session: string | undefined = "") {
+  if (!session) {
+    console.error("No session provided.");
+    return null;
+  }
   try {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
+
     return payload;
   } catch (error) {
     console.error(error);
+    return null;
   }
 }
 
